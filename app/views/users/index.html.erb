@@ -2,52 +2,11 @@
 <div class="row">
 	<div class="col-xs-3">
 		<h2>User info</h2>
-		<%= attachment_image_tag current_user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "100x100" %>
-		<table class="table">
-			<tbody>
-				<tr>
-					<th>name</th>
-					<th><%= current_user.name %></th>
-				</tr>
-				<tr>
-					<th>introduction</th>
-					<th><%= current_user.introduction %></th>
-				</tr>
-			</tbody>
-		</table>
-		<div class="row">
-			<% if @user.id == current_user.id %>
-			<p><%= link_to "プロフィール編集", edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %></p>
-			<% end %>
-		</div>
+		<%= render 'users/profile', user: current_user %>
 			
-		<!-- 新規投稿 -->
+		<!-- format -->
 		<h2>New book</h2>
-		<%= form_for(@book) do |f| %>
-		<!--　エラーメッセージ  -->
-		<% if @book.errors.any? %>
-		<div id="error_explanation">
-			<h5><%= pluralize(@book.errors.count, "error") %>prohibited this article from being saved:</h5>
-			<ul>
-				<% @book.errors.full_messages.each do |message| %>
-				<li><%= message %></li>
-				<% end %>
-			</ul>
-		</div>
-		<% end %>
-
-		<div class="field row">
-			<%= f.label :title %><br>
-			<%= f.text_field :title,class:"col-xs-12 book_title" %>
-		</div>
-		<div class="field row">
-			<%= f.label :opinion %><br>
-			<%= f.text_area :body,class:"col-xs-12 book_body" %>
-		</div>
-		<div class="actions row">
-			<%= f.submit 'Create Book',class:"btn btn-primary col-xs-12"  %>
-			<% end %>
-		</div>
+		<%= render 'books/newform', book: @book %>
 	</div>
 	<!-- USERS -->
 	<div class="col-xs-9">
