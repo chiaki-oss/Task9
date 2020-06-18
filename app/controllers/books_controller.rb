@@ -15,6 +15,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @user = @book.user  #booksからユーザー情報取得
     @newbook = Book.new  #新規投稿用変数
+    @book_comment = BookComment.new
   end
 
   def create

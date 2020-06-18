@@ -94,6 +94,10 @@
 					</th>
 					<% end %>
 
+					<!-- comment count -->
+					<th><%= "コメント数 : #{@book.book_comments.count}" %>
+					</th>
+
 					<% if @user.id == current_user.id %>
 					<th><%= link_to "Edit", edit_book_path(@book),class:"btn-sm btn-success" %></th>
 					<th class="button"><%= link_to "Destroy", book_path(@book), method: :delete,class:"btn-sm btn-danger" %></th>
@@ -101,6 +105,37 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<!-- comment/index -->
+		<% @book.book_comments.each do |book_comment| %>
+		<table class="table table-hover table-inverse">
+			<tbody>
+				<th>
+					<%= attachment_image_tag @book_comment.user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "40x40" %><br>
+					<%= book_comment.comment %>
+				</th>
+				<th><%= @book.title %></th>
+
+				<!-- delete comment -->
+				<% if book_comment.user == current_user %>
+				<th>
+					<%= link_to "destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-danger pull-right" %>
+				</th>
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+
+		<!-- comment format -->
+		<%= form_for [@book, @book_comment] do |f| %>
+		<div class="row">
+			<div class="col-sm-12">
+				<%= f.text_area :comment, rows:'5', class:"form-control" %>
+			</div>
+		</div>
+		<%= f.submit "送信", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+		<% end %>
+
 	</div>
 </div>
 
