@@ -1,0 +1,106 @@
+<!-- 投稿詳細ページ -->
+<!-- 投稿完了 -->
+<%= flash[:complete] %>
+<p id="notice"><%= notice %></p>
+<!-- 更新完了 -->
+<%= flash[:success] %>
+<p id="notice"><%= notice %></p>
+
+<!--　エラーメッセージ  -->
+<% if @book.errors.any? %>
+<div id="error_explanation">
+	<h5><%= pluralize(@book.errors.count, "error") %>prohibited this article from being saved:</h5>
+	<ul>
+		<% @book.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-3">
+		<h2>User info</h2>
+		<%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "100x100" %>
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>name</th>
+					<th><%= @user.name %></th>
+				</tr>
+				<tr>
+					<th>introduction</th>
+					<th><%= @user.introduction %></th>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<% if @user.id == current_user.id %>
+			<p><%= link_to "",edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %></p>
+			<% else %>
+			<p><%= link_to "",user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %></p>
+
+			<% end %>
+		</div>
+
+		<!-- 新規投稿 -->
+		<h2>New book</h2>
+			<%= form_for(@newbook) do |f| %>
+			<div class="field row">
+				<%= f.label :title %><br>
+				<%= f.text_field :title,class:"col-xs-12 book_title" %>
+			</div>
+			<div class="field row">
+				<%= f.label :opinion %><br>
+				<%= f.text_area :body,class:"col-xs-12 book_body" %>
+			</div>
+			<div class="actions row">
+				<%= f.submit 'Create Book',class:"btn btn-primary col-xs-12"  %>
+			<% end %>
+			</div>
+	</div>
+	<div class="col-xs-9">
+		<h2>Book detail</h2>
+		<table class="table table-hover table-inverse">
+			<tbody>
+				<tr>
+					<!-- profile-img / Users詳細 -->
+					<th><% if @user.id == current_user.id %>
+						<%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "100x100" %><br>
+							<%= link_to @user.name, user_path(@book.user) %>
+						<% else %>
+						<%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "40x40" %><br>
+							<%= link_to @user.name, user_path(@book.user) %>
+						<% end %>
+					</th>
+					<th><%= @book.title %></th>
+					<th><%= @book.body %></th>
+
+					<!-- favorites -->
+					<% if @book.favorited_by?(current_user) %>
+					<th>
+						<%= link_to book_favorites_path(@book),method: :delete do %>
+						<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+						<%= @book.favorites.count %>
+						<% end %>
+					</th>
+
+					<% else %>
+					<th>
+						<%= link_to book_favorites_path(@book),method: :post do %>
+						<i class="fa fa-heart" aria-hidden="true"></i>
+						<%= @book.favorites.count %>
+						<% end %>
+					</th>
+					<% end %>
+
+					<% if @user.id == current_user.id %>
+					<th><%= link_to "Edit", edit_book_path(@book),class:"btn-sm btn-success" %></th>
+					<th class="button"><%= link_to "Destroy", book_path(@book), method: :delete,class:"btn-sm btn-danger" %></th>
+					<% end %>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
