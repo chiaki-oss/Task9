@@ -1,0 +1,18 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>image</th>
+			<th>name</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% users.each do |user| %>
+		<tr>
+			<td><%= attachment_image_tag user, :profile_image, fallback: "no_image.jpg", class: "pull-left profile-img", size:"40x40" %></td>
+			<td><%= user.name %></td>
+			<td><%= link_to "Show", user %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

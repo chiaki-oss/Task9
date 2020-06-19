@@ -20,7 +20,7 @@ class BooksController < ApplicationController
   	@book = Book.new(book_params)
     @book.user_id = current_user.id  #投稿にユーザーid保存
   	if @book.save   #投稿後詳細ページへ
-      redirect_to book_path(@book),flash: {complete: "You have created book successfully."}
+      redirect_to @book, notice: "You have created book successfully."
     else
       @books = Book.all  #投稿再取得
       @user = User.new   #プロフィール表示用
@@ -34,7 +34,7 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
-      redirect_to book_path(@book),flash: {success: "You have updated book successfully."}
+      redirect_to @book, notice: "You have updated book successfully."
     else
       render :edit
     end

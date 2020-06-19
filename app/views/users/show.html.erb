@@ -1,6 +1,5 @@
 <!-- Users#show-->
 <!-- 更新完了 -->
-<%= flash[:success] %>
 <p id="notice"><%= notice %></p>
 
 
@@ -8,39 +7,21 @@
 	<div class="col-xs-3">
 		<!-- Profile -->
 		<h2>User info</h2>
+		<% if @user.id == current_user.id %>
 		<%= render 'users/profile', user: current_user %>
+		<% else %>
+		<%= render 'users/profile', user: @user %>
+		<% end %>
+
 		<!-- form -->
 		<h2>New book</h2>
 		<%= render 'books/newform', book: @book %>
 	</div>
-	
+
 	<!-- BOOKS -->
 	<div class="col-xs-9">
 		<h2>Books</h2>
-		<table class="table table-hover table-inverse">
-			<thead>
-				<tr>
-					<th></th>
-					<th>Title</th>
-					<th>Opinion</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @books.each do |book| %>
-				<tr>
-					<td><%= attachment_image_tag @user, :profile_image, fallback: "no_image.jpg", class: "pull-left profile-img", size:"50x50" %>
-					</td>
-					<!-- title / Books詳細へ -->
-					<td class="title">
-						<%= link_to book.title, book_path(book.id)  %>
-					</td>
-					<td class="body"><%= book.body %></td>
-					<!-- comment -->
-					<td> <%= "コメント数 : #{book.book_comments.count}" %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
+		<%= render 'books/index', books: @books %>
 	</div>
 </div>
 
