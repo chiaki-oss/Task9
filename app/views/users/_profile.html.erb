@@ -28,7 +28,7 @@
 	<% else %>
 
 	<!-- Follow button -->
-	<!-- current_user 1= user の時表示 -->
+	<!-- current_user ！= user の時表示 -->
 	<% unless current_user == user %>
 
 	<% if current_user.following?(user) %>
