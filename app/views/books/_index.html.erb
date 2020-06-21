@@ -22,22 +22,8 @@
 			<td class="body"><%= book.body %></td>
 
 			<!-- favorites -->
-			<% if book.favorited_by?(current_user) %>
-			<td>
-				<%= link_to book_favorites_path(book),method: :delete do %>
-				<span class="glyphicon glyphicon-heart">
-				<%= book.favorites.count %></span>
-			<% end %>
-			</td>
-
-			<% else %>
-			<td>
-				<%= link_to book_favorites_path(book),method: :post do %>
-				<span class="glyphicon glyphicon-heart-empty">
-				<%= book.favorites.count %></span>
-				<% end %>
-			</td>
-			<% end %>
+			<td id="favorite-<%= book.id %>" >
+			<%= render partial: "favorites/favorite", locals:{book: book} %></td>
 
 			<!-- comment -->
 			<td> <%= "コメント数 : #{book.book_comments.count}" %></td>

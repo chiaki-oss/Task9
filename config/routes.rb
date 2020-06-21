@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :books do
+    # favorite
     resource :favorites, only:[:create, :destroy]
     #↑ resource の場合、コントローラにidが含まれない
     resources :book_comments, only:[:create, :destroy]

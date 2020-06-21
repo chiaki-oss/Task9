@@ -13,8 +13,8 @@
 				<!-- profile-img / Users詳細へ -->
 				<td><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "50x50" %></td>
 				<td><%= user.name %></td>
-				<td>フォロー数 : <%= @user.following.count %></td>
-				<td>フォロワー数 : <%= @user.followers.count %></td>
+				<td>フォロー数 : <%= user.following.count %></td>
+				<td>フォロワー数 : <%= user.followers.count %></td>
 				<td>
 					<!-- Follow button -->
 					<!-- current_user ！= user の時表示 -->
