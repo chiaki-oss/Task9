@@ -9,6 +9,7 @@
 		<th><%= user.introduction %></th>
 	</tr>
 
+	<!-- follow/following count -->
 	<tr>
 		<th>follows</th>
 		<th><%= link_to user.following.count, following_user_path(user) %></th>

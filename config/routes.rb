@@ -9,7 +9,14 @@ Rails.application.routes.draw do
     #↑ resource の場合、コントローラにidが含まれない
     resources :book_comments, only:[:create, :destroy]
   end
+
   resources :users, only:[:show, :edit, :update, :index] do
+    # search
+    collection do
+      get 'search/search'
+    end
+
+    # follow
     member do
       get :following, :followers
     end

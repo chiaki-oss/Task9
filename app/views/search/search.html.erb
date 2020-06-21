@@ -1,0 +1,62 @@
+<div class="row">
+	<% if @user_or_book == "1" %>
+	<h1>Users search for "<%= @result %>"</h1>
+	<table class="table table-hover table-inverse">
+		<thead>
+			<tr>
+				<th>img</th>
+				<th>name</th>
+			</tr>
+		</thead>
+
+		<% @users.each do |user| %>
+		<tbody>
+			<tr>
+				<th><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "60x60" %></th>
+				<th><%= user.name %></th>
+				<th><%= link_to "Show", user %></th>
+			</tr>
+		</tbody>
+		<% end %>
+	</table>
+
+	<% elsif @user_or_book == "2" %>
+	<h2>Books search for "<%= @result %>"</h2>
+	<table class="table table-hover table-inverse">
+		<thead>
+			<tr>
+				<th></th>
+				<th>title</th>
+				<th>opinion</th>
+			</tr>
+		</thead>
+
+		<% @books.each do |book| %>
+		<tbody>
+			<tr>
+				<th><%= attachment_image_tag book.user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "60x60" %></th>
+				<th><%= link_to book.title, book_path(book.id)  %></th>
+				<th><%= book.body %></th>
+				<!-- favorites -->
+				<% if book.favorited_by?(current_user) %>
+				<th>
+				<%= link_to book_favorites_path(book), method: :delete do %>
+				<span class="glyphicon glyphicon-heart">
+				<%= book.favorites.count %></span>
+				<% end %></th>
+
+				<% else %>
+				<th>
+				<%= link_to book_favorites_path(book),method: :post do %>
+				<span class="glyphicon glyphicon-heart-empty">
+				<%= book.favorites.count %></span>
+				<% end %></th>
+				<% end %>
+				<th><%= "コメント数 : #{book.book_comments.count}" %></th>
+			</tr>
+		</tbody>
+		<% end %>
+	</table>
+	<% else %>
+	<% end %>
+</div>

@@ -24,6 +24,7 @@
 					<%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html:{method: :delete}) do |f| %>
 					<%= f.submit "フォローを外す", class: "btn" %>
 					<% end %>
+
 					<!--follow  -->
 					<% else %>
 					<%= form_for(current_user.active_relationships.build) do |f| %>

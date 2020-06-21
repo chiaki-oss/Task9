@@ -43,17 +43,20 @@ class UsersController < ApplicationController
 
   #Follow
   def following
-    @title = "Following"
     @user = User.find(params[:id])
     @users = @user.following
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
     @user = User.find(params[:id])
     @users = @user.followers
     render 'show_follow'
+  end
+
+  def serach
+    @users = User.where('name ?', params[:name])
+    render "search"
   end
 
   private
