@@ -28,59 +28,28 @@
 				<td><%= @book.body %></td>
 
 				<!-- favorites -->
-				<% if @book.favorited_by?(current_user) %>
-				<td>
-					<%= link_to book_favorites_path(@book),method: :delete do %>
-					<span class="glyphicon glyphicon-heart">
-						<%= @book.favorites.count %></span>
-					<% end %>
-				</td>
-
-				<% else %>
-				<td>
-					<%= link_to book_favorites_path(@book),method: :post do %>
-					<span class="glyphicon glyphicon-heart-empty">
-					<%= @book.favorites.count %></span>
-					<% end %>
-				</td>
-				<% end %>
+				<td id="favorite-<%= @book.id %>" >
+					<%= render partial: "favorites/favorite", locals:{book: @book} %></td>
 
 				<!-- comment count -->
 				<td><%= "コメント数 : #{@book.book_comments.count}" %></td>
 				<% if @user.id == current_user.id %>
 				<td><%= link_to "Edit", edit_book_path(@book),class:"btn-sm btn-success" %></td>
-				<td><%= link_to "Destroy", book_path(@book), method: :delete,class:"btn-sm btn-danger" %></td>
+				<td><%= link_to "Destroy", book_path(@book), method: :delete, remote: true, class:"btn-sm btn-danger" %></td>
 				<% end %>
 			</tr>
 		</table>
 
 		<!-- comment/index -->
-		<% @book.book_comments.each do |book_comment| %>
-		<table class="show-tb">
-			<tr>
-				<td>
-					<%= attachment_image_tag @book_comment.user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "40x40" %><br>
-					<%= book_comment.comment %>
-				</td>
-				<td><%= @book.title %></td>
-
-				<!-- delete comment -->
-				<% if book_comment.user == current_user %>
-				<td>
-					<%= link_to "destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-danger" %>
-				</td>
-				<% end %>
-			</tr>
+		<table id="comment_area-<%= @book.id %>">
+			<%= render partial: "book_comments/index", locals: {book: @book} %>
 		</table>
-		<% end %>
 
 		<!-- comment format -->
-		<%= form_for [@book, @book_comment] do |f| %>
-		<div class="comment-form">
-			<%= f.text_area :comment, rows:'5', class:"form-control" %>
-			<%= f.submit "送信", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+		<div id="comment-form-<%= @book.id %>">
+			<%= render partial: "book_comments/form", locals: {book: @book, book_comment:@book_comment} %>
 		</div>
-		<% end %>
+
 	</div>
 </div>
 

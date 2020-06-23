@@ -5,10 +5,10 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :books do
-    # favorite
-    resource :favorites, only:[:create, :destroy]
-    #↑ resource の場合、コントローラにidが含まれない
+    #comment
     resources :book_comments, only:[:create, :destroy]
+    # favorite (resource の場合、コントローラにidが含まれない)
+    resource :favorites, only:[:create, :destroy]
   end
 
   resources :users, only:[:show, :edit, :update, :index] do

@@ -5,6 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :books, dependent: :destroy
 
+  # comment
+  has_many :book_comments, dependent: :destroy
+  # favorite
+  has_many :favorites, dependent: :destroy
+
   #Follow associate
   has_many :active_relationships, class_name: "Relationship",
             foreign_key:"follower_id",
@@ -46,10 +51,6 @@ class User < ApplicationRecord
     end
   end
 
-  # favorite
-  has_many :favorites, dependent: :destroy
-  # comment
-  has_many :book_comments, dependent: :destroy
   attachment :profile_image
   validates :name, presence: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}
