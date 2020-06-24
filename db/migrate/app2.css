@@ -1,0 +1,6 @@
+.box2 {
+	/*display: none;　　/*要素を非表示にする*/
+	background-color: #ff0000;
+	height: 200px;
+	width: 200px;
+}

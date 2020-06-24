@@ -7,12 +7,12 @@ class BookCommentsController < ApplicationController
 		@comment.user_id = current_user.id  #commentにuserid代入
 		@comment.book_id = @book.id
 		@comment.save
-		@book_comment = BookComment.new
+		@book_comment = BookComment.new #newcomment用
 	end
 
 	def destroy
 		comment = BookComment.find_by(id: params[:id], book_id: params[:book_id])
-		@book = comment.book
+		@book = comment.book  #comment/book取得
 		#@book = Book.find_by(user_id: comment.user_id)
 		comment.destroy
 		#current/user本一覧
