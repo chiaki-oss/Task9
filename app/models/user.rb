@@ -65,6 +65,10 @@ class User < ApplicationRecord
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end
 
+  # Map address登録時に緯度経度のカラムにも値を自動入力
+  geocoded_by :address
+  after_validation :geocode
+
   attachment :profile_image
   validates :name, presence: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}

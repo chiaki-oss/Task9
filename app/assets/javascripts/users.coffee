@@ -13,8 +13,9 @@ $ ->
   }
  });
 
- #postal_code 000-0000の場合、
- #postcode:['#zipcode1','#zipcode2']
 
- #form_items
- # %3 prefecture / %4 city / %5 townarea / %6 address number / %7 building name
+#postal_code 000-0000の場合、
+#postcode:['#zipcode1','#zipcode2']
+
+#form_items
+# %3 prefecture / %4 city / %5 townarea / %6 address number / %7 building name

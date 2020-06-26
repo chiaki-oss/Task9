@@ -25,5 +25,49 @@
 	</div>
 </div>
 
+<!-- map -->
+<h2>Your Map</h2>
+<div id="map"><!-- Map表示 --></div>
+
+<style>
+	#map{
+		height: 400px;
+	}
+</style>
+
+<script>
+	function initMap(){
+		// lat,lon特定
+		var test ={lat: <%= @user.latitude %>, lng:<%= @user.longitude %>};
+		var map = new google.maps.Map(document.getElementById('map'),{
+			zoom: 15,
+			center: test
+		});
+
+		var transitLayer = new google.maps.TransitLayer();
+		transitLayer.setMap(map);
+
+		var contentString = '住所:<%= @user.address %>';
+		var inforwindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+
+		// Marker Pin
+		var marker = new google.maps.Marker({
+			position:test,
+			map: map,
+			title: contentString
+		});
+
+		marker.addListener('click', function(){
+			inforwindow.open(map, marker);
+		});
+	}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRenoOLqXt-GyFa-N_XjRjx6pLD-SMyHk&callback=initMap" async defer>
+</script>
+
+
 
 
