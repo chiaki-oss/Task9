@@ -70,3 +70,4 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jp_prefecture'
 gem 'jquery-rails'
 gem "geocoder"
+gem 'dotenv-rails'  #secret_key
