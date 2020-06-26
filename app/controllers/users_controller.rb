@@ -61,6 +61,11 @@ class UsersController < ApplicationController
 
   private
   def user_params
-  	params.require(:user).permit(:name, :profile_image, :introduction, :postal_code, :prefecture_code, :address_city, :address_street)
+  	params.require(:user).permit(:name, :profile_image, :introduction)
   end
+
+  def zipedit
+    params.require(:user).permit(:postal_code, :prefecture_name, :address_city, :address_street)
+  end
+
 end

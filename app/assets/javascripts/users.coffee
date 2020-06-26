@@ -11,7 +11,7 @@ $ ->
    "#address_city":"%4%5",
    "#address_street":"%6%7"
   }
- });
+ })
 
 
 #postal_code 000-0000の場合、

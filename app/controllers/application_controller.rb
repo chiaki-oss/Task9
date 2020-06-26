@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
 
 	protected
 	def configure_permitted_parameters
-		#ユーザー登録:name,mail,password要
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :postal_code, :prefecture_code, :address_city, :address_street])
+		#ユーザー登録:name,mail,password要/追記：map 関連
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :postal_code, :prefecture_code, :address_city, :address_street, :latitude, :longitude])
 		#ログイン：name,password要
 		devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :password])
 	end

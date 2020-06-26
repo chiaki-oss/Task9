@@ -25,9 +25,11 @@
 	</div>
 </div>
 
+<% if @user == current_user %>
 <!-- map -->
 <h2>Your Map</h2>
-<div id="map"><!-- Map表示 --></div>
+<!-- Map表示 -->
+<div id="map"></div>
 
 <style>
 	#map{
@@ -35,10 +37,11 @@
 	}
 </style>
 
-<script>
+<script type="text/javascript">
 	function initMap(){
 		// lat,lon特定
 		var test ={lat: <%= @user.latitude %>, lng:<%= @user.longitude %>};
+		// map表示要素取得
 		var map = new google.maps.Map(document.getElementById('map'),{
 			zoom: 15,
 			center: test
@@ -48,7 +51,7 @@
 		transitLayer.setMap(map);
 
 		var contentString = '住所:<%= @user.address %>';
-		var inforwindow = new google.maps.InfoWindow({
+		var infowindow = new google.maps.InfoWindow({
 			content: contentString
 		});
 
@@ -60,13 +63,15 @@
 		});
 
 		marker.addListener('click', function(){
-			inforwindow.open(map, marker);
+			infowindow.open(map, marker);
 		});
 	}
 </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
 </script>
+
+<% end %>
 
 
 
