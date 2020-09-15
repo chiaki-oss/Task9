@@ -10,6 +10,12 @@ class User < ApplicationRecord
   # favorite
   has_many :favorites, dependent: :destroy
 
+  # chat
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  #dmしてるユーザー一覧用
+  has_many :rooms, through: :entries
+
   #Follow associate
   has_many :active_relationships, class_name: "Relationship",
             foreign_key:"follower_id",
