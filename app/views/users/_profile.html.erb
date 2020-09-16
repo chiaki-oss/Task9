@@ -8,8 +8,6 @@
 		<th>introduction</th>
 		<th><%= user.introduction %></th>
 	</tr>
-
-	<!-- follow/following count -->
 	<tr>
 		<th>follows</th>
 		<th><%= link_to user.following.count, following_user_path(user) %></th>
@@ -19,14 +17,12 @@
 		<th>follower</th>
 		<th><%= link_to user.followers.count, followers_user_path(user) %></th>
 	</tr>
-
 </table>
-<!-- edit profile -->
+
 <div class="row">
-	<% if user.id == current_user.id %>
+	<% if user == current_user %>
 		<p><%= link_to "", edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %></p>
 	<% else %>
-		<!-- Follow-->
 		<p>
 		<% if current_user.following?(user) %>
 			<%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html:{method: :delete}) do |f| %>
@@ -39,23 +35,7 @@
 			<% end %>
 		<% end %>
 		</p>
-
-		<!-- chat 既にチャット記録がある場合 -->
-		<% if room_status == true %>
-			<p><%= link_to room_path(roomID) do %>
-				チャットへ
-				<% end %>
-			</p>
-		<!-- 初めての場合 entryモデルにuser.id送信 -->
-		<% else %>
-			<%= form_with model:room, lcal: true do |f| %>
-				<!-- field_for：他のモデルを編集可能 -->
-				<%= fields_for entry do |entry| %>
-					<%= entry.hidden_field :user_id, :value=> @user.id %>
-				<% end %>
-				<p><%= f.submit "チャットを始める" %></p>
-			<% end %>
-		<% end %>
+		<%= link_to 'chatを始める', message_path(user.id)%>
 	<% end %>
 </div>
 
