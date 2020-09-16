@@ -18,11 +18,10 @@ Rails.application.routes.draw do
     end
 
     # follow
-    member do
-      get :following, :followers
-    end
+    resource :relationships, only:[:create, :destroy]
+    get 'follows' => 'relationships#follower'
+    get 'followers' => 'relationships#followed'
   end
-  resources :relationships, only:[:create, :destroy]
 
   resources :messages, only: [:create, :show]
 

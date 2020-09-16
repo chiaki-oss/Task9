@@ -1,18 +1,11 @@
-<!-- Users#show-->
-<!-- 更新完了 -->
 <p id="notice"><%= notice %></p>
 
 <div class="row">
 	<div class="col-xs-3">
 		<!-- Profile -->
 		<h2>User info</h2>
-		<% if @user.id == current_user.id %>
-		<%= render 'users/profile', user: current_user %>
-		<% else %>
-		<%= render 'users/profile', user: @user, room: @room, room_status: @room_status, roomID: @roomID, entry: @entry %>
-		<% end %>
+		<%= render 'users/profile', user: @user %>
 
-		<!-- form -->
 		<h2>New book</h2>
 		<%= render 'books/newform', book: @book %>
 	</div>

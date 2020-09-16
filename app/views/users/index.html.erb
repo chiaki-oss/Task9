@@ -1,13 +1,12 @@
-<!-- Users画面 -->
+<!-- Users＃index -->
 <div class="row">
 	<div class="col-xs-3">
 		<h2>User info</h2>
 		<%= render 'users/profile', user: current_user %>
-		<!-- format -->
+
 		<h2>New book</h2>
 		<%= render 'books/newform', book: @book %>
 	</div>
-	<!-- USERS -->
 	<div class="col-xs-9">
 		<h2>Users</h2>
 		<%= render 'users/index', users: @users %>

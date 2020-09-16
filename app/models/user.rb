@@ -16,29 +16,25 @@ class User < ApplicationRecord
   #dmしてるユーザー一覧用
   has_many :rooms, through: :entries
 
-  #Follow associate
-  has_many :active_relationships, class_name: "Relationship",
-            foreign_key:"follower_id",
-            dependent: :destroy
-  has_many :following, through: :active_relationships,source: :followed
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # フォロー取得
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォロワー取得
+  # source: 関連モデルを指定
+  has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
+  has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
 
-  has_many :passive_relationships, class_name: "Relationship",
-            foreign_key:"followed_id",
-            dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
-  #follow
-  def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+  def follow(user_id)
+    follower.create(followed_id: user_id)
   end
 
-  #Unfollow
-  def unfollow(other_user)
-    active_relationships.find_by(followed_id: other_user.id).destroy
+  # ユーザーのフォローを外す
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
   end
 
-  #if current_user follow -> true
-  def following?(other_user)
-    following.include?(other_user)
+  # 既にフォローしているかの確認
+  # .include?(user)メソッド： 引数userが含まれているか確認
+  def following?(user)
+    following_user.include?(user)
   end
 
   # search

@@ -1,12 +1,11 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
-  #ログインしてなければ飛ばない
   before_action :ensure_correct_user,only: [:edit, :update, :destroy]
-  #編集制限
+
 
   def index
-  	@books = Book.all  #indexbook
-    @book = Book.new  #newbook
+  	@books = Book.all
+    @book = Book.new  #投稿フォーム
   end
 
   def show
